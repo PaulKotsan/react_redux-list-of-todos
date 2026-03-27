@@ -3,24 +3,22 @@ import '@fortawesome/fontawesome-free/css/all.css';
 import { Loader, TodoFilter, TodoList, TodoModal } from './components';
 import { getTodos } from './api';
 import { useEffect, useState } from 'react';
-import { Todo } from './types/Todo';
 import { useAppDispatch, useAppSelector } from './app/store';
 import { todosSlice } from './features/todos';
 
 export const App = () => {
-  const [allTodos, setAllTodos] = useState<Todo[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const dispatch = useAppDispatch();
 
   const currentTodo = useAppSelector(state => state.currentTodo);
 
-  dispatch(todosSlice.actions.setTodos(allTodos));
-
   useEffect(() => {
     getTodos()
-      .then(setAllTodos)
+      .then(todos => {
+        dispatch(todosSlice.actions.setTodos(todos));
+      })
       .finally(() => setIsLoading(false));
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
@@ -33,9 +31,7 @@ export const App = () => {
               <TodoFilter />
             </div>
 
-            <div className="block">
-              {isLoading ? <Loader /> : <TodoList todos={allTodos} />}
-            </div>
+            <div className="block">{isLoading ? <Loader /> : <TodoList />}</div>
           </div>
         </div>
       </div>

@@ -32,6 +32,7 @@ export const TodoFilter: React.FC = () => {
         <span className="select">
           <select
             data-cy="statusSelect"
+            value={useAppSelector(state => state.filter.status)}
             onChange={event => handleStatusChange(event)}
           >
             <option value="all">All</option>

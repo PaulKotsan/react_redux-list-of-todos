@@ -5,13 +5,10 @@ import classNames from 'classnames';
 import { useAppDispatch, useAppSelector } from '../../app/store';
 import { currentTodoSlice } from '../../features/currentTodo';
 
-interface TodoListProps {
-  todos: Todo[];
-}
-
-export const TodoList: React.FC<TodoListProps> = ({todos}) => {
+export const TodoList: React.FC = () => {
   const query = useAppSelector(state => state.filter.query);
   const field = useAppSelector(state => state.filter.status);
+  const todos = useAppSelector(state => state.todos).todos;
   const currentTodo = useAppSelector(state => state.currentTodo);
   const dispatch = useAppDispatch();
 
@@ -30,10 +27,6 @@ export const TodoList: React.FC<TodoListProps> = ({todos}) => {
   const toggleTodo = (toggledTodo: Todo) => {
     dispatch(currentTodoSlice.actions.toggleTodo(toggledTodo));
   }
-
-  useEffect(() => {
-    console.log(field);
-  }, [field]);
 
   return (
     <>
