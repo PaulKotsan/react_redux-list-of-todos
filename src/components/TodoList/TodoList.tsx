@@ -20,7 +20,7 @@ export const TodoList: React.FC = () => {
         return !todo.completed;
 
       default:
-        return todo;
+        return true;
     }
   });
 

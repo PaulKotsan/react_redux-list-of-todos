@@ -3,6 +3,7 @@ import { filterSlice } from '../../features/filter';
 
 export const TodoFilter: React.FC = () => {
   const query = useAppSelector(state => state.filter.query);
+  const selectValue = useAppSelector(state => state.filter.status);
   //const filter = useAppSelector(state => state.filter.status);
   const dispatch = useAppDispatch();
 
@@ -32,7 +33,7 @@ export const TodoFilter: React.FC = () => {
         <span className="select">
           <select
             data-cy="statusSelect"
-            value={useAppSelector(state => state.filter.status)}
+            value={selectValue}
             onChange={event => handleStatusChange(event)}
           >
             <option value="all">All</option>
